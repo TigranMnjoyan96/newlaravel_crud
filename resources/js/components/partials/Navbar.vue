@@ -11,6 +11,12 @@
                     <router-link class="nav-item" tag="li" to="/" active-class="active" exact>
                         <a class="nav-link" href="#">Home</a>
                     </router-link>
+
+                    <router-link class="nav-item" tag="li" to="/tag" active-class="active">
+                        <a class="nav-link" href="#">Tag</a>
+                    </router-link>
+
+
                     <router-link class="nav-item" tag="li" to="/tasks" active-class="active">
                         <a class="nav-link" href="#">Link</a>
                     </router-link>

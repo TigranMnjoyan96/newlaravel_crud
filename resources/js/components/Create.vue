@@ -15,6 +15,14 @@
                     <label for="description">Description</label>
                 </div>
 
+                    <div class="col s3">
+                        <select browser-default ref="select" v-model="tasks.tagId" class="col s2">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </div>
+
                 <div class="col s6">
                     <button class="btn waves-effect waves-light mt-3" type="submit">Submit
                         <i class="material-icons right">create</i>
@@ -24,18 +32,8 @@
             </form>
 
 
-
         </div>
 
-        <div class="row">
-            <div>
-                <select browser-default ref="select" v-model="tasks.tagId"  class="col s3">
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-            </div>
-        </div>
 
         <div class="row">
             <div class="container">
@@ -57,10 +55,14 @@
                             <td>{{task.id}}</td>
                             <td>{{task.title}}</td>
                             <td>{{task.description}}</td>
-                            <td>{{task.tagId}}</td>
+                            <td v-if="task.tag">{{task.tag.name}}</td>
+                            <td v-else></td>
                             <td>
                                 <button class="btn waves-effect" @click="removeTask(task.id)">
                                     <i class="material-icons text-danger">delete</i>
+                                </button>
+                                <button class="btn waves-effect" @click="editTask(task.id)">
+                                    <i class="material-icons text-warning">edit</i>
                                 </button>
                             </td>
                         </tr>
@@ -75,7 +77,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+    import axios from 'axios'
 
     export default {
         name: "Create",
@@ -94,6 +96,9 @@ import axios from 'axios'
                 axios.get('/api/tasks')
                     .then(res => {
                         this.allTasks = res.data
+                        this.tasks.title = ''
+                        this.tasks.description = ''
+                        this.tasks.tagId = ''
                     })
                     .catch(err => {
                     })
@@ -108,9 +113,9 @@ import axios from 'axios'
                         this.getTasks()
                         console.log(res, 555);
                     })
-                .catch(err => {
+                    .catch(err => {
 
-                })
+                    })
             },
             removeTask(id) {
                 axios.delete('/api/tasks/' + id)
@@ -118,9 +123,23 @@ import axios from 'axios'
                         console.log(res);
                         this.getTasks()
                     })
-                .catch(err => {
+                    .catch(err => {
 
+                    })
+            },
+            editTask(id) {
+                axios.put('/api/tasks/' + id, {
+                    title: this.tasks.title,
+                    description: this.tasks.description,
+                    tagId: this.tasks.tagId
                 })
+                    .then(res => {
+                        console.log(res)
+                        this.getTasks()
+                    })
+                    .catch(err => {
+
+                    })
             }
         },
 

@@ -11,6 +11,13 @@ const routes = [
         component: () => import('../components/Create')
     },
 
+
+    {
+        path: '/tag',
+        name: 'tag',
+        component: () => import('../components/CreateTag')
+    },
+
     {
         path: '/tasks',
         name: 'tasks',
@@ -19,6 +26,5 @@ const routes = [
 ]
 
 export default new VueRouter({
-    mode: 'history',
     routes
 })

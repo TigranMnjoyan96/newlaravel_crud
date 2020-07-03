@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/task', function (Request $request) {
 
 
 Route::apiResource('tasks', 'API\TaskController');
+Route::apiResource('tags', 'API\TagController');

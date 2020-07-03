@@ -4,10 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Tag;
-use App\Task;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +15,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-
-        $tasks =  Task::with('tag')->get();
-        $tags =  Tag::get();
-
-        return ['tasks' => $tasks, 'tags' => $tags];
-
+        Tag::get();
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -32,17 +25,14 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-
-        $task = Task::create([
-            'title' => $request->get('title'),
-            'description' => $request->get('description'),
-            'tagId' => $request->get('tagId')
+        $tag = Tag::create([
+            'name' => $request->get('name')
         ]);
 
 
-
-        $task->save();
+        $tag->save();
     }
+
 
     /**
      * Display the specified resource.
@@ -52,7 +42,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -64,11 +54,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $task = Task::find($id);
-        $task->title = $request->get('title');
-        $task->description = $request->get('description');
-        $task->tagId = $request->get('tagId');
-        $task->save();
+        //
     }
 
     /**
@@ -79,6 +65,6 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        Task::find($id)->delete();
+        //
     }
 }

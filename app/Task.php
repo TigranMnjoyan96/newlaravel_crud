@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+
+    public  $table = 'tasks';
     protected $fillable = [
         'title', 'description', 'tagId'
     ];
 
 
-    public function tags()
+    public function tag()
     {
-        return $this->hasMany('App\Tag');
+        return $this->belongsTo('App\Tag', 'tagId');
     }
 }
